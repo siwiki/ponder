@@ -147,7 +147,8 @@ for id in students:
     
     table.append(student_row)
 
-table.sort(key = lambda x : students[x['ID']]['sum'], reverse = True)
+
+table.sort(key = lambda x : students[x['ID']]['gpa' if args.gpa else 'sum'], reverse = True)
 
 # Write table to file.
 with open(args.output, 'w', encoding='utf-8-sig', newline='') as results:
