@@ -127,7 +127,8 @@ table = []
 columns = ['ID', 'Name'] + list(ECTS) + ['Sum', 'GPA']
 for id in students:
     if args.min_passed > len(students[id]['courses']):
-        print(f'{id} has only {len(students[id]["courses"])} passed subjects, needs {args.min_passed}.')
+        if args.verbose:
+            print(f'{id} has only {len(students[id]["courses"])} passed subjects, needs {args.min_passed}.')
         continue
     student_row = {
         'ID': id, 
@@ -140,6 +141,7 @@ for id in students:
     students[id]['gpa'] /= len(students[id]['courses'])
     students[id]['sum'] /= (sum(list(map(lambda x : ECTS[x], students[id]['courses']))))
     students[id]['sum'] += students[id]['priorsum']
+    students[id]['sum'] /= args.year
     student_row['GPA'] = f'={students[id]["gpa"]:.2f}'
     student_row['Sum'] = f'={students[id]["sum"]:.2f}'
     
